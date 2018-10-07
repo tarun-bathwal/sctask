@@ -103,7 +103,7 @@ describe('POST /login logging in with username and password',()=>{
 					done();
 				});
 		});
-		it('should post to apply_patch with logged in user',(done)=>{
+		it('should post to /thumbnail with logged in user',(done)=>{
 			let postbody={
 				url : 'https://images.mapsofindia.com/my-india/2013/11/sachin.jpg'
 			};

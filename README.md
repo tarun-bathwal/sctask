@@ -5,14 +5,15 @@
 ### Requirements
 * Node.JS 8.0 and up
 
-### Setup
+### Setup ( run the commands in this order)
 * git clone https://github.com/tarun-bathwal/sctask.git
 * cd sctask
 * npm install
+* npm run make_env ( this command makes a .env file which stores secret. This is only for development purpose and not for production)
 * npm test ( to run the test files, also shows code coverage courtesy istanbul.js)
 * npm start 
 * Base url : http://localhost:3000/
-* custom eslint configuration has been used as linter.
+* Note : custom eslint configuration has been used as linter.
 
 ## APIs USAGE
 
