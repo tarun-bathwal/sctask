@@ -4,7 +4,36 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const createError=require('http-errors');
 const indexRouter = require('./routes/index');
+const swaggerJSDoc = require('swagger-jsdoc');
 const app = express();
+
+// swagger definition
+var swaggerDefinition = {
+	info: {
+		title: 'Node Swagger API',
+		version: '1.0.0',
+		description: 'Visual Documentation of APIs used',
+	},
+	host: 'localhost:3000',
+	basePath: '/',
+};
+  
+// options for the swagger docs
+var options = {
+	// import swaggerDefinitions
+	swaggerDefinition: swaggerDefinition,
+	// path to the API docs
+	apis: ['./routes/*.js'],
+};
+  
+// initialize swagger-jsdoc
+let swaggerSpec = swaggerJSDoc(options);
+
+// serve swagger
+app.get('/swagger.json', function(req, res) {
+	res.setHeader('Content-Type', 'application/json');
+	res.send(swaggerSpec);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

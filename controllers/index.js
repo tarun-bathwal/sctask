@@ -5,9 +5,7 @@ const axios = require('axios');
 const fs=require('fs');
 const request=require('request');
 const path = require('path');
-const imageType=require('image-type');
-const FileType = require('stream-file-type')
-const detector = new FileType();
+
 
 exports.login = (req,res,next) => {
 	const username=req.body.username;
@@ -75,28 +73,28 @@ getImage = async (url,path) => {
 
 exports.resize_thumbnail = async (req,res,next) =>{
 	let url=req.body.url;
-	let location = `./public/images/${req.userData.username}_${Date.now()}input`
+	let pos = url.split(".");
+	let location = `./public/images/${req.userData.username}_${Date.now()}_input.${pos[pos.length-1]}`
 	getImage(url,location)
 	.then(()=>{
-		
-		let final_location=`./public/images/${req.userData.username}_${Date.now()}_output.jpeg`;
-		sharp(location).resize(50,50).toFormat('jpeg').toFile(final_location,(err)=>{
+		let final_location=`./public/images/${req.userData.username}_${Date.now()}_output.${pos[pos.length-1]}`;
+		sharp(location).resize(50,50).toFormat(pos[pos.length-1]).toFile(final_location,(err)=>{
 			if(err)
-				{
-					console.log(err);
-					res.status(500).json({
-						message:err
-					});
-				}
-				else{
-					fs.unlink(location);
-					res.sendFile(path.join(__dirname,`.${final_location}`));
-				}
+			{
+				res.status(500).json({
+					message:err
+				});
+			}
+			else{
+				fs.unlink(location);
+				res.sendFile(path.join(__dirname,`.${final_location}`));
+			}
 		});	
 	})
 	.catch((err)=>{
-		res.json({
-			message:"could not retrieve image"
+		res.status(500).json({
+			message:"could not retrieve image",
+			code : err.code
 		});
 	});
 
