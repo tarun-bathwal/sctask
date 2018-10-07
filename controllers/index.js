@@ -31,7 +31,8 @@ exports.apply_patch = (req,res,next) => {
 	const patch = req.body.patch;
 	let patcheddoc;
 	try{
-		patcheddoc = jsonpatch.apply_patch(doc,patch); //apply patch on doc
+		//apply patch on doc and save the result in patcheddoc
+		patcheddoc = jsonpatch.apply_patch(doc,patch); 
 	}
 	catch(err) {
 		res.status(500).json({
@@ -41,7 +42,8 @@ exports.apply_patch = (req,res,next) => {
 		});
 		return;
 	}
-	res.status(200).json({
+	//return the patched json
+	res.status(200).json({  
 		success:true,
 		message:'successfully patched the json object',
 		patcheddoc
@@ -74,9 +76,11 @@ getImage = async (url,path) => {
 exports.resize_thumbnail = async (req,res,next) =>{
 	let url=req.body.url;
 	let pos = url.split(".");
+	//set location of saving the image obtained from the url
 	let location = `./public/images/${req.userData.username}_${Date.now()}_input.${pos[pos.length-1]}`
 	getImage(url,location)
 	.then(()=>{
+		//set the location of saving the resized image
 		let final_location=`./public/images/${req.userData.username}_${Date.now()}_output.${pos[pos.length-1]}`;
 		sharp(location).resize(50,50).toFormat(pos[pos.length-1]).toFile(final_location,(err)=>{
 			if(err)
@@ -86,12 +90,14 @@ exports.resize_thumbnail = async (req,res,next) =>{
 				});
 			}
 			else{
+				//delete the original image downloaded, since only resized image is to be sent back.
 				fs.unlink(location);
 				res.sendFile(path.join(__dirname,`.${final_location}`));
 			}
 		});	
 	})
 	.catch((err)=>{
+		//if error crops up
 		res.status(500).json({
 			message:"could not retrieve image",
 			code : err.code

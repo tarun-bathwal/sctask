@@ -3,7 +3,7 @@ const Users=require('../controllers/index');
 const checkAuth = require('../middlewares/check-auth');
 const router = express.Router();
 
-
+//JSdoc comments used by swagger to generate swagger ui
 
 /**
  * @swagger
@@ -97,6 +97,7 @@ const router = express.Router();
  *         description: unauthorized user
  */
 
+// routes are of the form router.method(route,middleware,controller) 
 router.post('/login', checkAuth.check_field, Users.login);
 router.post('/apply_patch',checkAuth.verify, Users.apply_patch);
 router.post('/thumbnail',checkAuth.verify, Users.resize_thumbnail);

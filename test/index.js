@@ -4,16 +4,20 @@ let should = chai.should();
 let expect = chai.expect;
 let request = require('supertest');
 
+
+//a correct user object which should successfully log in.
 const userCredentials = {
 	username:'',
 	password:''    
 };
 
+//a wrong user object which should generate 400 error since password field is missing
 const fakeuser = {
 	username:'tarun'
 };
 
-let authenticatedUser = request.agent(server);
+//create an authenticated user which is a supertest user
+let authenticatedUser = request.agent(server); 
 let token;
 
 describe('POST /login logging in with username and password',()=>{
