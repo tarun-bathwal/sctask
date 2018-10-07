@@ -12,12 +12,27 @@
 * npm test ( to run the test files, also shows code coverage courtesy istanbul.js)
 * npm start 
 * Base url : http://localhost:3000/
+* custom eslint configuration has been used as linter.
 
-## APIs
+## APIs USAGE
 
 ### POST /login
 * 'username' and 'password' are two string type required json payloads
 * On success, it returns an object containing jwt token which should be sent along with other protected routes.
+```
+# PAYLOAD
+{
+	"username":"user",
+	"password":"pass"
+}
+
+# OUTPUT
+{
+    "success": true,
+    "message": "successfully logged in",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJwYXNzd29yZCI6InBhc3MiLCJpYXQiOjE1Mzg5MzI2NDIsImV4cCI6MTUzOTAxOTA0Mn0.RH6OBojXMNfRHF6PB4u6fLWBsExzI3P2KApMwrrFW18"
+}
+```
 
 
 ### POST /apply_patch
@@ -31,7 +46,7 @@
   "baz": "qux",
   "foo": "bar"
 },
-[
+"patch":[
   { "op": "replace", "path": "/baz", "value": "boo" },
   { "op": "add", "path": "/hello", "value": ["world"] },
   { "op": "remove", "path": "/foo" }
@@ -58,6 +73,7 @@
 
 ### http://localhost:3000/api-docs
 * swagger-ui for interactive documentation is available at this address.
+
 
 
 
