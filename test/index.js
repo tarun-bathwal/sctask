@@ -23,7 +23,7 @@ let token;
 describe('POST /login logging in with username and password',()=>{
 	before((done)=>{
 		authenticatedUser
-			.post('/login')
+			.post('/api/login')
 			.send(userCredentials)
 			.end((err, res)=>{
 				expect(res.statusCode).to.equal(200);
@@ -38,7 +38,7 @@ describe('POST /login logging in with username and password',()=>{
 
 	it('should not login a user if username or password is undefined',(done)=>{
 		request(server)
-			.post('/login')
+			.post('/api/login')
 			.send(fakeuser)
 			.end((err,res)=>{
 				expect(res.statusCode).to.equal(400);
@@ -58,7 +58,7 @@ describe('POST /login logging in with username and password',()=>{
 				}]
 			};
 			request(server)
-				.post('/apply_patch')
+				.post('/api/apply_patch')
 				.send(postbody)
 				.end((err,res)=>{
 					expect(res.statusCode).to.equal(401);
@@ -77,7 +77,7 @@ describe('POST /login logging in with username and password',()=>{
 			};
 		
 			authenticatedUser				
-				.post('/apply_patch')
+				.post('/api/apply_patch')
 				.set('Authorization',`Bearer ${token}`)
 				.send(postbody)
 				.end((err,res)=>{
@@ -96,7 +96,7 @@ describe('POST /login logging in with username and password',()=>{
 				url : 'https://images.mapsofindia.com/my-india/2013/11/sachin.jpg'
 			};
 			request(server)
-				.post('/apply_patch')
+				.post('/api/apply_patch')
 				.send(postbody)
 				.end((err,res)=>{
 					expect(res.statusCode).to.equal(401);
@@ -108,7 +108,7 @@ describe('POST /login logging in with username and password',()=>{
 				url : 'https://images.mapsofindia.com/my-india/2013/11/sachin.jpg'
 			};
 			authenticatedUser				
-				.post('/thumbnail')
+				.post('/api/thumbnail')
 				.set('Authorization',`Bearer ${token}`)
 				.send(postbody)
 				.end((err,res)=>{

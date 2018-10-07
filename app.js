@@ -15,7 +15,7 @@ var swaggerDefinition = {
 		description: 'Visual Documentation of APIs used',
 	},
 	host: 'localhost:3000',
-	basePath: '/',
+	basePath: '/api/',
 };
   
 // options for the swagger docs
@@ -44,7 +44,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', indexRouter);
+app.use('/api/', indexRouter);
 
 
 // catch 404 and forward to error handler
