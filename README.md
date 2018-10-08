@@ -75,6 +75,7 @@
 ### POST /api/thumbnail
 * Payload contains 'url' as a string which is the public url of the image to be downloaded.
 * Set 'Authorization' Header as "Bearer token" where token is the same as obtained as payload after logging in. Token expires in 24hours.
+* Make sure the proxy is set/unset as required since it will fetch the image from a url.
 * The image at url is resized to 50*50 pixels and sent back as response.
 
 ### http://localhost:3000/api-docs

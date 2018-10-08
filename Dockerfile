@@ -4,4 +4,4 @@ COPY package.json /app
 RUN npm install
 COPY . /app
 CMD node ./bin/www
-EXPOSE 8081
+EXPOSE 3000
